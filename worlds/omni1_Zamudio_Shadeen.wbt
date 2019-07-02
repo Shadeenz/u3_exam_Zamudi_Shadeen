@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.7840880684554085 0.611111924917269 0.10838872694970185 0.3791168676889284
-  position 0.4549258782470259 0.44613286564420124 0.8182811126977653
+  orientation 0.003923868830656637 0.9834471545399888 0.18115269106640222 3.1505777572650207
+  position 0.4445159904052902 1.3170729348106032 -2.7252400308843723
 }
 TexturedBackground {
 }
@@ -28,7 +28,7 @@ DEF OMNI_WHEELS Robot {
               maxTorque 0.59312
             }
             PositionSensor {
-              name "encoder"
+              name "encoder1"
             }
           ]
           endPoint Solid {
@@ -695,7 +695,8 @@ DEF OMNI_WHEELS Robot {
       ]
     }
     DistanceSensor {
-      translation 0.09500000000000001 0.10999999999999999 -0.010000000000000004
+      translation 0.05633974600953083 0.10999999999999999 -0.07964101619718521
+      rotation 0 1 0 0.5235987739999998
       children [
         Shape {
           appearance PBRAppearance {
@@ -715,7 +716,8 @@ DEF OMNI_WHEELS Robot {
       resolution 1
     }
     DistanceSensor {
-      translation 0.08500000000000002 0.10999999999999999 0.060000000000000005
+      translation 0.09500000000000001 0.10999999999999999 -0.020000000000000004
+      rotation 0 1 0 0.5235987739999998
       children [
         Shape {
           appearance PBRAppearance {
@@ -735,7 +737,8 @@ DEF OMNI_WHEELS Robot {
       resolution 1
     }
     DistanceSensor {
-      translation 0.005000000000000022 0.10999999999999999 0.12999999999999998
+      translation 0.025000000000000022 0.10999999999999999 0.09
+      rotation 0 1 0 4.974188353
       children [
         Shape {
           appearance PBRAppearance {
@@ -755,7 +758,8 @@ DEF OMNI_WHEELS Robot {
       resolution 1
     }
     DistanceSensor {
-      translation -0.004999999999999978 0.10999999999999999 -0.09
+      translation -0.06999999954322472 0.10999999999999999 -0.06598076184981384
+      rotation 0 1 0 5.7595865139999995
       children [
         Shape {
           appearance PBRAppearance {

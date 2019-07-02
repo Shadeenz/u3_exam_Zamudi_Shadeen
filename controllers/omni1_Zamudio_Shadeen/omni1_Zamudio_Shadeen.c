@@ -1,70 +1,237 @@
 /*
- * File:          omni1_Zamudio_Shadeen.c
+ * File:          onmiwheel.c
  * Date:
  * Description:
  * Author:
  * Modifications:
  */
-
-/*
- * You may need to add include files like <webots/distance_sensor.h> or
- * <webots/differential_wheels.h>, etc.
- */
-/*
- * Copyright 1996-2018 Cyberbotics Ltd.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/*
- * Description: Demo of a three-omni-wheels robot
- * Thanks to Mehdi Ghanavati, Shahid Chamran University
- */
+#include <webots/robot.h>
+#include <webots/motor.h>
+#include <webots/distance_sensor.h>
+#include <webots/position_sensor.h>
+#include <webots/keyboard.h>
 
 #include <stdio.h>
-#include <webots/motor.h>
-#include <webots/robot.h>
+#include <math.h>
 
-static WbDeviceTag wheels[3];
+/*
+ * macros
+ */
+#define TIME_STEP 64
+#define PI 3.141592
+#define OBSTACLE_DIST 50.0
 
-static double cmd[5][3] = {
-  {-2, 1, 1}, {0, 1, -1}, {2, -1, -1}, {0, -1, 1}, {2, 2, 2},
+
+enum {
+  GO,
+  TURN,
+  FREEWAY,
+  OBSTACLE,
+  AUTONOMUS,
+  MANUAL,
+  LEFT,
+  RIGHT
 };
 
-static double SPEED_FACTOR = 4.0;
+int  A = 65, S = 83, G = 71, W = 87;
+int mode;
+double straightLineAngle;
 
-int main() {
-  int i, j, k;
+int searchForObstacles(WbDeviceTag distance_sensor) {
+  double distance_of_sensor = wb_distance_sensor_get_value(distance_sensor);
+  printf("Distance%lf\n", distance_of_sensor );
+  if (distance_of_sensor > OBSTACLE_DIST)
+    return FREEWAY;
+  else
+    return OBSTACLE;
+}
 
-  // initialize Webots
+
+void fowardLinearly(WbDeviceTag *wheels, double velocity) {
+  wb_motor_set_velocity(wheels[0], -velocity);
+  wb_motor_set_velocity(wheels[1], -velocity);
+  wb_motor_set_velocity(wheels[2], 0);
+}
+
+void backwardLinearly(WbDeviceTag *wheels){
+  wb_motor_set_velocity(wheels[0], 6);
+  wb_motor_set_velocity(wheels[1],-6);
+  wb_motor_set_velocity(wheels[2], 0);
+}
+
+void rightLinearly(WbDeviceTag *wheels){
+  wb_motor_set_velocity(wheels[0], 6);
+  wb_motor_set_velocity(wheels[1], 0);
+  wb_motor_set_velocity(wheels[2],-6);
+}
+
+void leftlinearly(WbDeviceTag *wheels){
+  wb_motor_set_velocity(wheels[0],-6);
+  wb_motor_set_velocity(wheels[1], 0);
+  wb_motor_set_velocity(wheels[2], 6);
+}
+
+void wheelsTurnRight(WbDeviceTag *wheels){
+  wb_motor_set_velocity(wheels[0], -6);
+  wb_motor_set_velocity(wheels[1], -6);
+  wb_motor_set_velocity(wheels[2], -6);
+}
+
+void wheelsTurnLeft(WbDeviceTag *wheels){
+  wb_motor_set_velocity(wheels[0], 6);
+  wb_motor_set_velocity(wheels[1], 6);
+  wb_motor_set_velocity(wheels[2], 6);
+}
+
+void stopWheels(WbDeviceTag *wheels) {
+  wb_motor_set_velocity(wheels[0], 0);
+  wb_motor_set_velocity(wheels[1], 0);
+  wb_motor_set_velocity(wheels[2], 0);
+}
+
+double getAngleRobot(WbDeviceTag pos_sensor) {
+  printf("Angle calculation\n");
+  double angle, rotationAngleW1;
+
+  rotationAngleW1 = wb_position_sensor_get_value(pos_sensor);
+  angle = fabs(rotationAngleW1- straightLineAngle);
+  printf("Angle: %lf\n", angle);
+
+  return angle;
+}
+float clearAngleRobot() {
+  printf("Clearing angle\n");
+}
+/*
+ * main
+ */
+int main(int argc, char **argv)
+{
+  /* necessary to initialize webots stuff */
   wb_robot_init();
+  wb_keyboard_enable(TIME_STEP);
 
-  for (i = 0; i < 3; i++) {
-    char name[64];
-    sprintf(name, "wheel%d", i + 1);
-    wheels[i] = wb_robot_get_device(name);
-    wb_motor_set_position(wheels[i], INFINITY);
-  }
+   //Motor devices
+   WbDeviceTag wheel1= wb_robot_get_device("wheel1");
+   WbDeviceTag wheel2= wb_robot_get_device("wheel2");
+   WbDeviceTag wheel3= wb_robot_get_device("wheel3");
 
-  while (1) {
-    for (i = 0; i < 5; i++) {
-      for (j = 0; j < 3; j++)
-        wb_motor_set_velocity(wheels[j], cmd[i][j] * SPEED_FACTOR);
+   WbDeviceTag wheels[3];
+   wheels[0] = wheel1;
+   wheels[1] = wheel2;
+   wheels[2] = wheel3;
 
-      for (k = 0; k < 100; k++)
-        wb_robot_step(8);
+   wb_motor_set_position(wheel1, INFINITY);
+   wb_motor_set_position(wheel2, INFINITY);
+   wb_motor_set_position(wheel3, INFINITY);
+
+   float velocity;
+   int robot_state = GO;
+
+   //distance sensor devices
+   WbDeviceTag dist_sensor=wb_robot_get_device("distance_front");
+   wb_distance_sensor_enable(dist_sensor, TIME_STEP);
+   double distance_value;
+
+  //encoder device
+   WbDeviceTag encoder = wb_robot_get_device("encoder1");
+   wb_position_sensor_enable(encoder, TIME_STEP);
+   float angle;
+
+   //keyboard variables
+   int keyboard;
+
+
+  /* main loop*/
+  while (wb_robot_step(TIME_STEP) != -1) {
+
+    keyboard = wb_keyboard_get_key();
+
+    if (keyboard == A){
+      mode = RIGHT;
+      straightLineAngle= wb_position_sensor_get_value(encoder);
+    }
+    else if (keyboard == S){
+      mode = LEFT;
+      straightLineAngle = wb_position_sensor_get_value(encoder);
+    }
+    else if (keyboard == G){
+      mode = AUTONOMUS;
+    }
+    else if (keyboard == W)
+      mode = MANUAL;
+
+if (mode == AUTONOMUS){
+
+    if (robot_state == GO) {
+      distance_value = searchForObstacles(dist_sensor);
+      if (distance_value== FREEWAY) {
+        velocity = 8;
+        fowardLinearly(wheels, velocity);
+        angle = wb_position_sensor_get_value(encoder);
+        printf("Angle: %lf\n", angle);
+      } else if (distance_value== OBSTACLE) {
+        robot_state = TURN;
+        stopWheels(wheels);
+        straightLineAngle = wb_position_sensor_get_value(encoder);
+      }
+    } else if (robot_state == TURN) {
+      wheelsTurnRight(wheels);
+      angle = getAngleRobot(encoder);
+        if (angle >= 0.275*4*PI) {
+          robot_state = GO;
+          stopWheels(wheels);
+          clearAngleRobot();
+      }
     }
   }
+ else {
+     if (keyboard == WB_KEYBOARD_UP){
+       velocity = 6;
+       fowardLinearly(wheels, velocity);
+       angle = wb_position_sensor_get_value(encoder);
+       printf("Angle: %lf\n", angle);
+
+     } else if (keyboard == WB_KEYBOARD_DOWN){
+         backwardLinearly(wheels);
+         angle = wb_position_sensor_get_value(encoder);
+         printf("Angle: %lf\n", angle);
+
+     } else if (keyboard == WB_KEYBOARD_RIGHT){
+         rightLinearly(wheels);
+         angle = wb_position_sensor_get_value(encoder);
+         printf("Angle: %lf\n", angle);
+
+     } else if (keyboard == WB_KEYBOARD_LEFT){
+         leftlinearly(wheels);
+         angle = wb_position_sensor_get_value(encoder);
+         printf("Angle: %lf\n", angle);
+
+     } else if (mode == LEFT){
+         wheelsTurnLeft(wheels);
+         angle =  wb_position_sensor_get_value(encoder);
+         if (angle >= 0.4*PI) {
+           robot_state = GO;
+           stopWheels(wheels);
+         }
+     } else if (mode == RIGHT){
+         wheelsTurnRight(wheels);
+         angle = getAngleRobot(encoder);
+         if (angle >= 0.4*PI) {
+           robot_state = GO;
+           stopWheels(wheels);
+         }
+     } else {
+         stopWheels(wheels);
+     }
+
+   }
+}
+
+  /* Enter your cleanup code here */
+
+  /* This is necessary to cleanup webots resources */
+  wb_robot_cleanup();
 
   return 0;
 }
