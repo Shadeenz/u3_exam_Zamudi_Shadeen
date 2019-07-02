@@ -48,14 +48,14 @@ int searchForObstacles(WbDeviceTag distance_sensor) {
 
 
 void fowardLinearly(WbDeviceTag *wheels, double velocity) {
-  wb_motor_set_velocity(wheels[0], -velocity);
-  wb_motor_set_velocity(wheels[1], -velocity);
+  wb_motor_set_velocity(wheels[0], -6);
+  wb_motor_set_velocity(wheels[1], 6);
   wb_motor_set_velocity(wheels[2], 0);
 }
 
 void backwardLinearly(WbDeviceTag *wheels){
   wb_motor_set_velocity(wheels[0], 6);
-  wb_motor_set_velocity(wheels[1],-6);
+  wb_motor_set_velocity(wheels[1], -6);
   wb_motor_set_velocity(wheels[2], 0);
 }
 
@@ -178,7 +178,7 @@ if (mode == AUTONOMUS){
     } else if (robot_state == TURN) {
       wheelsTurnRight(wheels);
       angle = getAngleRobot(encoder);
-        if (angle >= 0.275*4*PI) {
+        if (angle >= PI) {
           robot_state = GO;
           stopWheels(wheels);
           clearAngleRobot();
@@ -187,7 +187,6 @@ if (mode == AUTONOMUS){
   }
  else {
      if (keyboard == WB_KEYBOARD_UP){
-       velocity = 6;
        fowardLinearly(wheels, velocity);
        angle = wb_position_sensor_get_value(encoder);
        printf("Angle: %lf\n", angle);

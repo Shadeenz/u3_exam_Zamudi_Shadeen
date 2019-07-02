@@ -274,7 +274,7 @@ DEF OMNI_WHEELS Robot {
           }
         }
       ]
-      name "wheel 1"
+      name "wheel1"
       boundingObject DEF DUMMY Sphere {
         radius 0.01
       }
@@ -474,7 +474,7 @@ DEF OMNI_WHEELS Robot {
           }
         }
       ]
-      name "wheel 2"
+      name "wheel2"
       boundingObject USE DUMMY
       physics Physics {
       }
@@ -672,7 +672,7 @@ DEF OMNI_WHEELS Robot {
           }
         }
       ]
-      name "wheel 3"
+      name "wheel3"
       boundingObject USE DUMMY
       physics Physics {
       }
