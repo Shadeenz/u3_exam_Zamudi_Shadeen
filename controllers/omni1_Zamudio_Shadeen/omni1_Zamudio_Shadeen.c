@@ -1,10 +1,4 @@
-/*
- * File:          onmiwheel.c
- * Date:
- * Description:
- * Author:
- * Modifications:
- */
+
 #include <webots/robot.h>
 #include <webots/motor.h>
 #include <webots/distance_sensor.h>
@@ -33,7 +27,7 @@ enum {
   RIGHT
 };
 
-int  A = 65, S = 83, G = 71, W = 87;
+
 int mode;
 double straightLineAngle;
 
@@ -129,8 +123,12 @@ int main(int argc, char **argv)
    int robot_state = GO;
 
    //distance sensor devices
-   WbDeviceTag dist_sensor=wb_robot_get_device("distance_front");
-   wb_distance_sensor_enable(dist_sensor, TIME_STEP);
+   WbDeviceTag dist_right=wb_robot_get_device("distance_right");
+   wb_distance_sensor_enable(dist_right, TIME_STEP);
+
+   WbDeviceTag dist_left=wb_robot_get_device("distance_left");
+   wb_distance_sensor_enable(dist_left, TIME_STEP);
+
    double distance_value;
 
   //encoder device
@@ -147,24 +145,24 @@ int main(int argc, char **argv)
 
     keyboard = wb_keyboard_get_key();
 
-    if (keyboard == A){
+    if (keyboard == 'A'){
       mode = RIGHT;
       straightLineAngle= wb_position_sensor_get_value(encoder);
     }
-    else if (keyboard == S){
+    else if (keyboard == 'S'){
       mode = LEFT;
       straightLineAngle = wb_position_sensor_get_value(encoder);
     }
-    else if (keyboard == G){
+    else if (keyboard == 'G'){
       mode = AUTONOMUS;
     }
-    else if (keyboard == W)
+    else if (keyboard == 'W')
       mode = MANUAL;
 
 if (mode == AUTONOMUS){
 
     if (robot_state == GO) {
-      distance_value = searchForObstacles(dist_sensor);
+      distance_value = searchForObstacles(dist_left);
       if (distance_value== FREEWAY) {
         velocity = 8;
         fowardLinearly(wheels, velocity);
