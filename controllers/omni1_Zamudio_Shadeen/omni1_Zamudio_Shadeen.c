@@ -1,4 +1,3 @@
-
 #include <webots/robot.h>
 #include <webots/motor.h>
 #include <webots/distance_sensor.h>
@@ -13,12 +12,12 @@
  */
 #define TIME_STEP 64
 #define PI 3.141592
-#define OBSTACLE_DIST 50.0
-
+#define OBSTACLE_DIST 120.0
 
 enum {
   GO,
-  TURN,
+  TURNRIGHT,
+  TURNLEFT,
   FREEWAY,
   OBSTACLE,
   AUTONOMUS,
@@ -28,18 +27,16 @@ enum {
 };
 
 
-int mode;
+int mode = AUTONOMUS;
 double straightLineAngle;
 
 int searchForObstacles(WbDeviceTag distance_sensor) {
   double distance_of_sensor = wb_distance_sensor_get_value(distance_sensor);
-  printf("Distance%lf\n", distance_of_sensor );
   if (distance_of_sensor > OBSTACLE_DIST)
     return FREEWAY;
   else
     return OBSTACLE;
 }
-
 
 void fowardLinearly(WbDeviceTag *wheels, double velocity) {
   wb_motor_set_velocity(wheels[0], -6);
@@ -129,7 +126,8 @@ int main(int argc, char **argv)
    WbDeviceTag dist_left=wb_robot_get_device("distance_left");
    wb_distance_sensor_enable(dist_left, TIME_STEP);
 
-   double distance_value;
+   double distance_left;
+   double distance_right;
 
   //encoder device
    WbDeviceTag encoder = wb_robot_get_device("encoder1");
@@ -146,11 +144,11 @@ int main(int argc, char **argv)
     keyboard = wb_keyboard_get_key();
 
     if (keyboard == 'A'){
-      mode = RIGHT;
+      mode = LEFT;
       straightLineAngle= wb_position_sensor_get_value(encoder);
     }
     else if (keyboard == 'S'){
-      mode = LEFT;
+      mode = RIGHT;
       straightLineAngle = wb_position_sensor_get_value(encoder);
     }
     else if (keyboard == 'G'){
@@ -161,57 +159,59 @@ int main(int argc, char **argv)
 
 if (mode == AUTONOMUS){
 
+  distance_left = searchForObstacles(dist_left);
+  distance_right = searchForObstacles(dist_right);
+
     if (robot_state == GO) {
-      distance_value = searchForObstacles(dist_left);
-      if (distance_value== FREEWAY) {
+      if (distance_left== FREEWAY && distance_right == FREEWAY) {
         velocity = 8;
         fowardLinearly(wheels, velocity);
-        angle = wb_position_sensor_get_value(encoder);
-        printf("Angle: %lf\n", angle);
-      } else if (distance_value== OBSTACLE) {
-        robot_state = TURN;
+      } else if (distance_left== OBSTACLE && distance_right == FREEWAY) {
+        robot_state = TURNRIGHT;
         stopWheels(wheels);
-        straightLineAngle = wb_position_sensor_get_value(encoder);
       }
-    } else if (robot_state == TURN) {
-      wheelsTurnRight(wheels);
-      angle = getAngleRobot(encoder);
-        if (angle >= PI) {
-          robot_state = GO;
-          stopWheels(wheels);
-          clearAngleRobot();
+     else if (distance_right == OBSTACLE && distance_left == FREEWAY) {
+        robot_state = TURNLEFT;
+        stopWheels(wheels);
       }
     }
+    else if (robot_state == TURNRIGHT){
+      wheelsTurnLeft(wheels);
+      if (distance_left== FREEWAY) {
+        robot_state = GO;
+    }
   }
+    else if (robot_state == TURNLEFT){
+      wheelsTurnRight(wheels);
+      if (distance_left== FREEWAY) {
+        robot_state = GO;
+    }
+  }
+}
  else {
      if (keyboard == WB_KEYBOARD_UP){
        fowardLinearly(wheels, velocity);
-       angle = wb_position_sensor_get_value(encoder);
-       printf("Angle: %lf\n", angle);
 
      } else if (keyboard == WB_KEYBOARD_DOWN){
          backwardLinearly(wheels);
          angle = wb_position_sensor_get_value(encoder);
-         printf("Angle: %lf\n", angle);
 
      } else if (keyboard == WB_KEYBOARD_RIGHT){
          rightLinearly(wheels);
          angle = wb_position_sensor_get_value(encoder);
-         printf("Angle: %lf\n", angle);
 
      } else if (keyboard == WB_KEYBOARD_LEFT){
          leftlinearly(wheels);
          angle = wb_position_sensor_get_value(encoder);
-         printf("Angle: %lf\n", angle);
 
-     } else if (mode == LEFT){
+     } else if (mode == RIGHT){
          wheelsTurnLeft(wheels);
-         angle =  wb_position_sensor_get_value(encoder);
+         angle = getAngleRobot(encoder);
          if (angle >= 0.4*PI) {
            robot_state = GO;
            stopWheels(wheels);
          }
-     } else if (mode == RIGHT){
+     } else if (mode == LEFT){
          wheelsTurnRight(wheels);
          angle = getAngleRobot(encoder);
          if (angle >= 0.4*PI) {

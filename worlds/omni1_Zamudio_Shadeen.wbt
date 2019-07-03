@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.008103930091851163 0.9556011061677001 0.2945519516284592 3.1734915328817217
-  position 0.13211043936021372 1.4140118461563609 -1.3054424391671384
+  orientation 0.10599139363868076 0.979112779687651 0.17350501182055703 4.184924712439004
+  position -1.089728104722441 0.6907931012032842 -0.5012697642842571
 }
 TexturedBackground {
 }
@@ -695,8 +695,8 @@ DEF OMNI_WHEELS Robot {
       ]
     }
     DistanceSensor {
-      translation 0.05721857407263747 0.10999999999999999 -0.08960232440622563
-      rotation 0 1 0 1.4828
+      translation 0.05851242852873024 0.10999999999999999 0.08447111875588056
+      rotation 0 1 0 5.586
       children [
         Shape {
           appearance PBRAppearance {
@@ -716,8 +716,8 @@ DEF OMNI_WHEELS Robot {
       resolution 1
     }
     DistanceSensor {
-      translation -0.037479590726783536 0.10999999999999999 -0.09322820228761523
-      rotation 0 1 0 1.6572
+      translation 0.10394882018188648 0.10999999999999999 0.012776666310737846
+      rotation 0 1 0 5.7595
       children [
         Shape {
           appearance PBRAppearance {
@@ -743,14 +743,15 @@ DEF OMNI_WHEELS Robot {
   controller "omni1_Zamudio_Shadeen"
 }
 Solid {
-  translation 0.34 0.13999999999999996 -0.3299999999999999
+  translation 0.6223542239173903 0.13999999999999996 0.7153888722267158
+  rotation 0 1 0 2.6179937475821395
   children [
     Shape {
       appearance PBRAppearance {
         baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
       }
       geometry DEF OBS_1 Box {
-        size 0.1 0.25 0.1
+        size 0.01 0.4 0.05
       }
     }
   ]
@@ -758,17 +759,34 @@ Solid {
   boundingObject USE OBS_1
 }
 Solid {
-  translation 0.5200000000000002 0.13999999999999996 -0.25
+  translation 1.3201337472052574 0.11999999999999995 0.9680062631019205
+  rotation 0 1 0 2.6179937475821395
   children [
     Shape {
       appearance PBRAppearance {
         baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
       }
       geometry DEF OBS_1 Box {
-        size 0.1 0.25 0.1
+        size 0.01 0.4 0.1
       }
     }
   ]
   name "solid(1)"
+  boundingObject USE OBS_1
+}
+Solid {
+  translation 1.821544825582449 0.11999999999999995 0.7282915918609385
+  rotation 0 1 0 3.1415925215821394
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+      }
+      geometry DEF OBS_1 Box {
+        size 0.01 0.4 0.1
+      }
+    }
+  ]
+  name "solid(2)"
   boundingObject USE OBS_1
 }
