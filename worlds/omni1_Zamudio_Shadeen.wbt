@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.017448506054009383 -0.9742022000545054 -0.22500138454117244 3.0178257010398126
-  position 0.6031309457435585 1.8547757667355493 -2.4324186353250017
+  orientation -0.08104558892033788 -0.9481991418705286 -0.3071644508606897 2.6710696141173864
+  position -0.7877109517807992 2.0595406251328647 -1.7297684316670703
 }
 TexturedBackground {
 }
@@ -839,7 +839,7 @@ Solid {
   boundingObject USE OBS_1
 }
 Solid {
-  translation 1.5393344083564158 0.13999999999999996 2.3071323632912093
+  translation 1.6493344083564134 0.13999999999999996 2.3071323793943694
   rotation 0 -1 0 4.712389126777033
   children [
     Shape {
@@ -852,6 +852,22 @@ Solid {
     }
   ]
   name "solid(7)"
+  boundingObject USE OBS_1
+}
+Solid {
+  translation 1.919334408356408 0.13999999999999996 2.307132418920308
+  rotation 0 -1 0 4.712389126777033
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+      }
+      geometry DEF OBS_1 Box {
+        size 0.01 0.4 0.3
+      }
+    }
+  ]
+  name "solid(17)"
   boundingObject USE OBS_1
 }
 Solid {

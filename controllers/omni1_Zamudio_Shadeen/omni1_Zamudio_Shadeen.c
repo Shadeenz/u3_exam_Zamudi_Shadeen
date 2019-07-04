@@ -1,3 +1,15 @@
+/*
+ * File:          omni1_Zamudio_Shadeen.c
+ * Date: 3/07/19
+ * Description:
+ * Author: Zamudio Shadeen
+ * Modifications:
+ */
+
+/*
+ * You may need to add include files like <webots/distance_sensor.h> or
+ * <webots/differential_wheels.h>, etc.
+ */
 #include <webots/robot.h>
 #include <webots/motor.h>
 #include <webots/distance_sensor.h>
@@ -89,6 +101,7 @@ double getAngleRobot(WbDeviceTag pos_sensor) {
 
   return angle;
 }
+
 float clearAngleRobot() {
   printf("Clearing angle\n");
 }
@@ -162,14 +175,14 @@ if (mode == AUTONOMUS){
   distance_right = searchForObstacles(dist_right);
 
     if (robot_state == GO) {
+
       if (distance_left== FREEWAY && distance_right == FREEWAY) {
         velocity = 8;
         fowardLinearly(wheels, velocity);
       } else if (distance_left== OBSTACLE && distance_right == FREEWAY) {
         robot_state = TURNRIGHT;
         stopWheels(wheels);
-      }
-     else if (distance_right == OBSTACLE && distance_left == FREEWAY) {
+      } else if (distance_right == OBSTACLE && distance_left == FREEWAY) {
         robot_state = TURNLEFT;
         stopWheels(wheels);
       }
@@ -178,14 +191,13 @@ if (mode == AUTONOMUS){
       wheelsTurnLeft(wheels);
       if (distance_left== FREEWAY) {
         robot_state = GO;
-    }
-  }
-    else if (robot_state == TURNLEFT){
-      wheelsTurnRight(wheels);
-      if (distance_left== FREEWAY) {
-        robot_state = GO;
-    }
-  }
+      }
+    } else if (robot_state == TURNLEFT){
+        wheelsTurnRight(wheels);
+        if (distance_left== FREEWAY) {
+          robot_state = GO;
+        }
+      }
 }
  else {
      if (keyboard == WB_KEYBOARD_UP){
