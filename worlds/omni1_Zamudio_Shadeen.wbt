@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.10599139363868076 0.979112779687651 0.17350501182055703 4.184924712439004
-  position -1.089728104722441 0.6907931012032842 -0.5012697642842571
+  orientation -0.017448506054009383 -0.9742022000545054 -0.22500138454117244 3.0178257010398126
+  position 0.6031309457435585 1.8547757667355493 -2.4324186353250017
 }
 TexturedBackground {
 }
@@ -682,7 +682,7 @@ DEF OMNI_WHEELS Robot {
       children [
         Shape {
           appearance PBRAppearance {
-            baseColor 0.564706 0.933333 0.564706
+            baseColor 0.8666666666666667 0.5098039215686274 0.5098039215686274
             roughness 1
             metalness 0
           }
@@ -743,7 +743,7 @@ DEF OMNI_WHEELS Robot {
   controller "omni1_Zamudio_Shadeen"
 }
 Solid {
-  translation 0.6223542239173903 0.13999999999999996 0.7153888722267158
+  translation 0.5823542148823653 0.13999999999999996 0.7846708993130961
   rotation 0 1 0 2.6179937475821395
   children [
     Shape {
@@ -751,7 +751,7 @@ Solid {
         baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
       }
       geometry DEF OBS_1 Box {
-        size 0.01 0.4 0.05
+        size 0.01 0.4 0.3
       }
     }
   ]
@@ -759,7 +759,7 @@ Solid {
   boundingObject USE OBS_1
 }
 Solid {
-  translation 1.3201337472052574 0.11999999999999995 0.9680062631019205
+  translation 1.4462515072323912 0.13999999999999996 0.6483570398919425
   rotation 0 1 0 2.6179937475821395
   children [
     Shape {
@@ -767,7 +767,7 @@ Solid {
         baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
       }
       geometry DEF OBS_1 Box {
-        size 0.01 0.4 0.1
+        size 0.01 0.4 0.3
       }
     }
   ]
@@ -775,7 +775,199 @@ Solid {
   boundingObject USE OBS_1
 }
 Solid {
-  translation 1.821544825582449 0.11999999999999995 0.7282915918609385
+  translation 1.525603845209388 0.13999999999999996 1.4909145788514988
+  rotation 0 1 0 2.6179937475821395
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+      }
+      geometry DEF OBS_1 Box {
+        size 0.01 0.4 0.3
+      }
+    }
+  ]
+  name "solid(2)"
+  boundingObject USE OBS_1
+}
+Solid {
+  translation 2.2738793514356703 0.13999999999999996 1.41486349876847
+  rotation 0 1 0 2.6179937475821395
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+      }
+      geometry DEF OBS_1 Box {
+        size 0.01 0.4 0.3
+      }
+    }
+  ]
+  name "solid(3)"
+  boundingObject USE OBS_1
+}
+Solid {
+  translation 2.1828023091452846 0.13999999999999996 2.089741519075572
+  rotation 0 -1 0 4.712389126777033
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+      }
+      geometry DEF OBS_1 Box {
+        size 0.01 0.4 0.3
+      }
+    }
+  ]
+  name "solid(4)"
+  boundingObject USE OBS_1
+}
+Solid {
+  translation 2.395289436045557 0.13999999999999996 2.004574946304483
+  rotation 0 1 0 2.6179937475821395
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+      }
+      geometry DEF OBS_1 Box {
+        size 0.01 0.4 0.3
+      }
+    }
+  ]
+  name "solid(6)"
+  boundingObject USE OBS_1
+}
+Solid {
+  translation 1.5393344083564158 0.13999999999999996 2.3071323632912093
+  rotation 0 -1 0 4.712389126777033
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+      }
+      geometry DEF OBS_1 Box {
+        size 0.01 0.4 0.3
+      }
+    }
+  ]
+  name "solid(7)"
+  boundingObject USE OBS_1
+}
+Solid {
+  translation 1.331129335226317 0.13999999999999996 2.2677541158426946
+  rotation 0 -1 0 5.235987900777033
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+      }
+      geometry DEF OBS_1 Box {
+        size 0.01 0.4 0.3
+      }
+    }
+  ]
+  name "solid(8)"
+  boundingObject USE OBS_1
+}
+Solid {
+  translation 0.35108471530895535 0.13999999999999996 2.0252411023717127
+  rotation 0 -1 0 5.235987900777033
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+      }
+      geometry DEF OBS_1 Box {
+        size 0.01 0.4 0.3
+      }
+    }
+  ]
+  name "solid(9)"
+  boundingObject USE OBS_1
+}
+Solid {
+  translation 0.14645128063139493 0.13999999999999996 1.8446496507553563
+  rotation 0 1 0 0.5235986132229661
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+      }
+      geometry DEF OBS_1 Box {
+        size 0.01 0.4 0.3
+      }
+    }
+  ]
+  name "solid(10)"
+  boundingObject USE OBS_1
+}
+Solid {
+  translation -0.14237547982689758 0.13999999999999996 1.2679766457879895
+  rotation 0 1 0 5.759586353222965
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+      }
+      geometry DEF OBS_1 Box {
+        size 0.01 0.4 0.3
+      }
+    }
+  ]
+  name "solid(11)"
+  boundingObject USE OBS_1
+}
+Solid {
+  translation 0.4687665713431579 0.13999999999999996 -0.23918853799807993
+  rotation 0 1 0 5.497786966222966
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+      }
+      geometry DEF OBS_1 Box {
+        size 0.01 0.4 0.3
+      }
+    }
+  ]
+  name "solid(12)"
+  boundingObject USE OBS_1
+}
+Solid {
+  translation 0.8262951655122347 0.13999999999999996 -0.2791627223607758
+  rotation 0 -1 0 4.974188552136207
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+      }
+      geometry DEF OBS_1 Box {
+        size 0.01 0.4 0.5
+      }
+    }
+  ]
+  name "solid(13)"
+  boundingObject USE OBS_1
+}
+Solid {
+  translation 1.137422086531752 0.13999999999999996 0.03196432406385705
+  rotation 0 1 0 0.7853979618637926
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+      }
+      geometry DEF OBS_1 Box {
+        size 0.01 0.4 0.5
+      }
+    }
+  ]
+  name "solid(14)"
+  boundingObject USE OBS_1
+}
+Solid {
+  translation 1.3662515389142265 0.13999999999999996 0.40835702933133167
   rotation 0 1 0 3.1415925215821394
   children [
     Shape {
@@ -783,10 +975,26 @@ Solid {
         baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
       }
       geometry DEF OBS_1 Box {
-        size 0.01 0.4 0.1
+        size 0.01 0.4 0.3
       }
     }
   ]
-  name "solid(2)"
+  name "solid(15)"
+  boundingObject USE OBS_1
+}
+Solid {
+  translation 1.1969693811971516 0.13999999999999996 1.3118952988696333
+  rotation 0 1 0 2.0943949352229656
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+      }
+      geometry DEF OBS_1 Box {
+        size 0.01 0.4 0.3
+      }
+    }
+  ]
+  name "solid(16)"
   boundingObject USE OBS_1
 }
