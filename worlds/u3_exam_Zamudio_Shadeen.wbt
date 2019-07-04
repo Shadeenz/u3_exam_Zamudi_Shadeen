@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.08104558892033788 -0.9481991418705286 -0.3071644508606897 2.6710696141173864
-  position -0.7877109517807992 2.0595406251328647 -1.7297684316670703
+  orientation -0.07202986723119136 -0.963852124531357 -0.2565166276541275 2.6366257900615957
+  position -0.8807346220123775 1.9609516591329057 -1.4901742176194124
 }
 TexturedBackground {
 }
@@ -740,7 +740,7 @@ DEF OMNI_WHEELS Robot {
   boundingObject USE BODY_TRANS
   physics Physics {
   }
-  controller "omni1_Zamudio_Shadeen"
+  controller "u3_exam_Zamudio_Shadeen"
 }
 Solid {
   translation 0.5823542148823653 0.13999999999999996 0.7846708993130961
@@ -887,7 +887,7 @@ Solid {
   boundingObject USE OBS_1
 }
 Solid {
-  translation 0.35108471530895535 0.13999999999999996 2.0252411023717127
+  translation 0.27314243548408906 0.13999999999999996 1.9802410910861379
   rotation 0 -1 0 5.235987900777033
   children [
     Shape {
@@ -919,8 +919,8 @@ Solid {
   boundingObject USE OBS_1
 }
 Solid {
-  translation -0.14237547982689758 0.13999999999999996 1.2679766457879895
-  rotation 0 1 0 5.759586353222965
+  translation -0.039862620848088226 0.13999999999999996 1.4225214911000827
+  rotation 0 -1 0 5.759586711993522
   children [
     Shape {
       appearance PBRAppearance {
@@ -932,6 +932,22 @@ Solid {
     }
   ]
   name "solid(11)"
+  boundingObject USE OBS_1
+}
+Solid {
+  translation -0.07335618975093562 0.13999999999999996 0.964316408096598
+  rotation 0 -1 0 0.5235989719935213
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+      }
+      geometry DEF OBS_1 Box {
+        size 0.01 0.4 0.3
+      }
+    }
+  ]
+  name "solid(18)"
   boundingObject USE OBS_1
 }
 Solid {
@@ -948,6 +964,22 @@ Solid {
     }
   ]
   name "solid(12)"
+  boundingObject USE OBS_1
+}
+Solid {
+  translation 0.3414873281299886 0.13999999999999996 -0.11190933998409652
+  rotation 0 1 0 5.497786966222966
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+      }
+      geometry DEF OBS_1 Box {
+        size 0.01 0.4 0.3
+      }
+    }
+  ]
+  name "solid(19)"
   boundingObject USE OBS_1
 }
 Solid {
