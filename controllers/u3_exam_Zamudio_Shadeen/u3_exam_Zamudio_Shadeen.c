@@ -158,13 +158,13 @@ int main(int argc, char **argv)
     if(keyboard == 'A'){
      mode = LEFT;
      straightLineAngle= wb_position_sensor_get_value(encoder);
-    } else if(keyboard == 'S'){
-       mode = RIGHT;
-       straightLineAngle = wb_position_sensor_get_value(encoder);
-    } else if(keyboard == 'G')
-       mode = AUTONOMUS;
-      else if(keyboard == 'W')
-       mode = MANUAL;
+    }else if(keyboard == 'S'){
+      mode = RIGHT;
+      straightLineAngle = wb_position_sensor_get_value(encoder);
+    }else if(keyboard == 'G')
+      mode = AUTONOMUS;
+     else if(keyboard == 'W')
+      mode = MANUAL;
 
     if(mode == AUTONOMUS){
      distance_left = searchForObstacles(dist_left);
