@@ -1,4 +1,4 @@
-build/release/omni1_Zamudio_Shadeen.o: omni1_Zamudio_Shadeen.c \
+build/release/u3_exam_Zamudio_Shadeen.o: u3_exam_Zamudio_Shadeen.c \
  /usr/local/webots/include/controller/c/webots/robot.h \
  /usr/local/webots/include/controller/c/webots/types.h \
  /usr/local/webots/include/controller/c/webots/nodes.h \
